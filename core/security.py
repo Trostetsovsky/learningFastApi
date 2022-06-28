@@ -30,7 +30,7 @@ def decode_access_token(token: str):
     try:
         encoded_jwt = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
         return encoded_jwt if encoded_jwt['exp'] >= time.time() else None
-    except jwt.JWSError:
+    except jwt.ExpiredSignatureError:
         return None
 
 

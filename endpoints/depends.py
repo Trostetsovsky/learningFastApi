@@ -6,6 +6,7 @@ from db.base import database
 from models.users_validator import User
 from repositories.locations_repository import LocationRepository
 from repositories.places_repository import PlaceRepository
+from repositories.user_favorite_places_repository import UserFavoritePlaceRepository
 from repositories.users_repository import UserRepository
 
 not_found_exception = HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Location not found")
@@ -17,6 +18,10 @@ def get_place_repository() -> PlaceRepository:
 
 def get_location_repository() -> LocationRepository:
     return LocationRepository(database)
+
+
+def get_user_favorite_place_repository() -> UserFavoritePlaceRepository:
+    return UserFavoritePlaceRepository(database)
 
 
 def get_user_repository() -> UserRepository:
@@ -37,5 +42,3 @@ async def get_current_user(
     if user is None:
         return HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Credentials are not valid')
     return user
-
-
